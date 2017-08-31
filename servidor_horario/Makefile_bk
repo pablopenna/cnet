@@ -1,0 +1,20 @@
+all: socket_server socket_client reloj
+	echo 'all done'
+socket_server.o: socket_server.c
+	gcc -Wall -c socket_server.c
+socket_client.o: socket_client.c
+	gcc -Wall -c socket_client.c
+reloj.o: reloj.c
+	gcc -Wall -c reloj.c
+socket_server: socket_server.o
+	gcc socket_server.o -o socket_server
+socket_client: socket_client.o
+	gcc socket_client.o -o socket_client
+reloj: reloj.o
+	gcc reloj.o -o reloj
+
+clean:
+	rm *.o
+	rm socket_server
+	rm socket_client
+	rm reloj

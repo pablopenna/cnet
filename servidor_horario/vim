@@ -1,0 +1,5 @@
+#ifndef RELOJ
+#define RELOJ
+char * myGetDate();
+
+#endif
