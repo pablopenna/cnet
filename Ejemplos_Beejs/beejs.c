@@ -29,7 +29,10 @@ int main()
 	hints.ai_family = AF_UNSPEC;	 //don't care IPv4 or IPv6
 	hints.ai_socktype = SOCK_STREAM; //TCP stream sockets
 	hints.ai_flags = AI_PASSIVE;	 //fill in my IP for me
-
+	
+	//Si el primer parametro de getaddrinfo() es NULL, se conectara con 
+	//el propio host, es decir, buscara las conexiones de 0.0.0.0, o lo
+	//que es lo mismo, 127.0.0.1
 	if ((status = getaddrinfo(NULL, "3490", &hints, &servinfo)) != 0) {
 
 		fprintf(stderr, "getaddrinfo error: %s\n", gai_strerror(status));
@@ -38,7 +41,24 @@ int main()
 
 	// servinfo now points to a linked list of 1 or more struct addrinfos
 	// ... do everything until you don't need servinfo anymore ....
+	
+	struct addrinfo *p;
+	
+	for(p=servinfo; p != NULL; p=p->ai_next)
+	{
+		printf("Iteracion---\n");
+		struct sockaddr_in *temp;
+		void* ad_net;//direccion en net
+		char ad_char [INET_ADDRSTRLEN];//direccion en char
 
+		temp = (struct sockaddr_in *)p->ai_addr;
+		ad_net = &(temp->sin_addr);
+		inet_ntop(p->ai_family, ad_net,ad_char,sizeof ad_char);
+		printf("-> %s\n", ad_char);
+
+	
+	}
+	
 	freeaddrinfo(servinfo); // free the linked-list
 
 	return 0;
