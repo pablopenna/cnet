@@ -37,7 +37,18 @@ int main (void)
 
 	status = connect(sockfd, res->ai_addr, res->ai_addrlen);
 	printf("connect() -> %d\n",status);
+	
+	//mensaje
+	char *msg = "Mensaje del cliente";
+	int len, bytes_sent;
+	
+	//enviar mensaje
+	len = strlen(msg);
+	bytes_sent = send(sockfd, msg, len, 0);
+	printf("Mensaje enviado: %s\nbytes: %d\n",msg,bytes_sent);
+	//recibir mensaje
 
+	//FIN
 	close(sockfd);
 
 	return 0;

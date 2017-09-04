@@ -61,6 +61,13 @@ int main (void)
 		new_fd = accept(sockfd, (struct sockaddr *) &their_addr, &addr_size);
 
 		//Todo listo para utilizar el socket new_fd para comunicarnos
+		int max_len = 1024;
+		char msg [max_len];
+		memset(msg, 0, max_len);
+
+		int bytes_rcv = recv(new_fd, msg, max_len, 0);
+		printf("Mensaje recibido: %s\n%d bytes\n", msg, bytes_rcv);
+
 		
 		//FINAL
 		close(sockfd);
