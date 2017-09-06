@@ -7,6 +7,7 @@
 #include <netdb.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <arpa/inet.h>//inet_ntop()
 
 #define MYPORT "3490" //Puerto al que se conectaran los usuarios
 #define BACKLOG 10 	//número de conexiones pendientes que podra haber en cola
@@ -56,6 +57,18 @@ int main (void)
 			//Este es el socket que utilizaremos paraofrecerle los servicios al
 			//cliente cuya conexion hayamos aceptado.
 			new_fd = accept(sockfd, (struct sockaddr *) &their_addr, &addr_size);
+
+			//who are you?--ES PROBABLE QUE ROMAP EL PROGRAMA
+			printf("Who are you?\n");
+			struct sockaddr_in you;
+			socklen_t you_len = sizeof you;
+			status = getpeername(new_fd, (struct sockaddr*) &you, &you_len);
+			
+			void* dir_net = &(you.sin_addr);
+			char dir_char [INET_ADDRSTRLEN];
+			inet_ntop(AF_INET, dir_net, dir_char, sizeof dir_char);
+			printf("dir: %s\n", dir_char);
+			//-----------------
 
 			//Todo listo para utilizar el socket new_fd para comunicarnos
 			int max_len = 1024;

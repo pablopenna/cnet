@@ -38,6 +38,15 @@ int main (void)
 		status = connect(sockfd, res->ai_addr, res->ai_addrlen);
 		printf("connect() -> %d\n",status);
 
+		//Who am i?
+		printf("Who am I?\n");
+		int ilen = 64;
+		char I [ilen];
+		gethostname(I,ilen);
+		printf("dir: %s\n", I);
+		//----
+		
+
 		//mensaje
 		//char *msg = "Mensaje del cliente";
 		int len, bytes_sent;
