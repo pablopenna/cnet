@@ -1,4 +1,4 @@
-all: showip beejs ssserver
+all: showip beejs ssserver ssclient
 	echo 'all done'
 showip: showip.o
 	gcc showip.o -o showip
@@ -12,8 +12,13 @@ ssserver: ssserver.o
 	gcc ssserver.o -o ssserver
 ssserver.o: ssserver.c
 	gcc -Wall -c ssserver.c
+ssclient: ssclient.o
+	gcc ssclient.o -o ssclient
+ssclient.o: ssclient.c
+	gcc -Wall -c ssclient.c
 clean:
 	rm *.o
 	rm beejs
 	rm showip
 	rm ssserver
+	rm ssclient

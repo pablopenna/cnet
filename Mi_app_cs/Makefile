@@ -5,7 +5,7 @@ client01: client01.o
 client01.o: client01.c
 	gcc -Wall -c client01.c
 server01: server01.o
-	gcc server01.o -o server01
+	gcc server01.o -o server01 -lpthread
 server01.o: server01.c
 	gcc -Wall -c server01.c
 clean:
